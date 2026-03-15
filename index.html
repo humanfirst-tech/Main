@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Human First Technology provides practical IT, cybersecurity, cloud, and business technology services with a people-first approach." />
+  <meta name="description" content="Human First Technology provides managed IT, cybersecurity, cloud guidance, and practical technology consulting with a people-first approach." />
   <title>Human First Technology</title>
   <style>
     :root {
-      --bg: #0a1020;
-      --bg-soft: #10182c;
+      --bg: #07111f;
+      --bg2: #0d1830;
       --panel: rgba(255, 255, 255, 0.08);
-      --panel-border: rgba(255, 255, 255, 0.14);
-      --text: #f4f7fb;
-      --muted: #b7c2d5;
-      --primary: #6ee7ff;
-      --primary-2: #6c8cff;
-      --accent: #9d7bff;
-      --success: #7ef0b8;
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --panel-strong: rgba(255, 255, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.14);
+      --text: #f5f8fc;
+      --muted: #b9c5d8;
+      --primary: #7dd3fc;
+      --primary2: #818cf8;
+      --accent: #a78bfa;
+      --success: #86efac;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
       --radius: 22px;
-      --max: 1200px;
+      --max: 1180px;
     }
 
     * {
@@ -35,9 +36,9 @@
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(108, 140, 255, 0.22), transparent 28%),
-        radial-gradient(circle at top right, rgba(110, 231, 255, 0.18), transparent 24%),
-        linear-gradient(180deg, #09101f 0%, #0d1323 45%, #0a1020 100%);
+        radial-gradient(circle at top left, rgba(129, 140, 248, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(125, 211, 252, 0.16), transparent 24%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, #08111f 100%);
       line-height: 1.6;
     }
 
@@ -46,22 +47,17 @@
       text-decoration: none;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
     .container {
       width: min(92%, var(--max));
       margin: 0 auto;
     }
 
-    .topbar {
+    .site-header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(16px);
-      background: rgba(10, 16, 32, 0.72);
+      backdrop-filter: blur(14px);
+      background: rgba(7, 17, 31, 0.72);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
@@ -69,7 +65,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0;
+      min-height: 76px;
       gap: 20px;
     }
 
@@ -82,96 +78,101 @@
     }
 
     .brand-badge {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
       display: grid;
       place-items: center;
       font-weight: 800;
       color: white;
-      background: linear-gradient(135deg, var(--primary-2), var(--primary), var(--accent));
-      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, var(--primary2), var(--primary), var(--accent));
+      box-shadow: 0 10px 24px rgba(129, 140, 248, 0.35);
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
       align-items: center;
-      flex-wrap: wrap;
+      gap: 24px;
     }
 
     .nav-links a {
       color: var(--muted);
       font-size: 0.96rem;
-      transition: 0.25s ease;
+      transition: 0.2s ease;
     }
 
     .nav-links a:hover {
       color: var(--text);
     }
 
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
+    .nav-cta {
+      padding: 11px 18px;
       border-radius: 999px;
-      font-weight: 700;
-      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary-2), var(--primary));
-      color: #07111f;
-      box-shadow: 0 10px 30px rgba(108, 140, 255, 0.35);
-    }
-
-    .btn-secondary {
-      border: 1px solid var(--panel-border);
+      border: 1px solid var(--border);
       background: rgba(255,255,255,0.04);
       color: var(--text);
+      font-weight: 700;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .menu-toggle span,
+    .menu-toggle::before,
+    .menu-toggle::after {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: white;
+      margin: 5px auto;
+      transition: 0.25s ease;
     }
 
     .hero {
-      padding: 88px 0 72px;
+      padding: 92px 0 72px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 32px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 30px;
       align-items: center;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+      display: inline-block;
       padding: 8px 14px;
       border-radius: 999px;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
       color: var(--muted);
       font-size: 0.9rem;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     h1, h2, h3 {
-      line-height: 1.1;
       margin-top: 0;
+      line-height: 1.1;
     }
 
     h1 {
-      font-size: clamp(2.5rem, 5vw, 4.9rem);
+      font-size: clamp(2.7rem, 5vw, 5rem);
+      letter-spacing: -1.8px;
       margin-bottom: 18px;
-      letter-spacing: -1.6px;
     }
 
     .hero p {
       color: var(--muted);
-      font-size: 1.07rem;
+      font-size: 1.08rem;
       max-width: 720px;
       margin-bottom: 28px;
     }
@@ -180,28 +181,51 @@
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-bottom: 26px;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary2), var(--primary));
+      color: #06111f;
+      box-shadow: 0 12px 28px rgba(125, 211, 252, 0.25);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
     }
 
     .trust-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 8px;
     }
 
     .trust-chip {
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
-      color: #d6e0ef;
+      background: rgba(255,255,255,0.04);
+      color: #d7e0ee;
       font-size: 0.92rem;
     }
 
     .hero-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
-      border: 1px solid var(--panel-border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+      border: 1px solid var(--border);
       border-radius: 28px;
       padding: 28px;
       box-shadow: var(--shadow);
@@ -209,37 +233,45 @@
       overflow: hidden;
     }
 
-    .hero-card::before {
+    .hero-card::after {
       content: "";
       position: absolute;
-      inset: auto -40px -50px auto;
+      right: -40px;
+      bottom: -40px;
       width: 180px;
       height: 180px;
-      background: radial-gradient(circle, rgba(110,231,255,0.35), transparent 65%);
+      background: radial-gradient(circle, rgba(125, 211, 252, 0.30), transparent 65%);
       pointer-events: none;
     }
 
-    .stat {
+    .mini-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .mini-card {
       display: grid;
       grid-template-columns: 54px 1fr;
       gap: 14px;
       align-items: start;
-      margin-bottom: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
-    .stat-icon {
+    .mini-icon {
       width: 54px;
       height: 54px;
       border-radius: 16px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, rgba(108,140,255,0.28), rgba(110,231,255,0.24));
-      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(129,140,248,0.28), rgba(125,211,252,0.22));
       font-size: 1.2rem;
     }
 
     .section {
-      padding: 72px 0;
+      padding: 74px 0;
     }
 
     .section-header {
@@ -249,8 +281,8 @@
 
     .section-header h2 {
       font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 12px;
       letter-spacing: -1px;
+      margin-bottom: 12px;
     }
 
     .section-header p {
@@ -258,7 +290,7 @@
       margin: 0;
     }
 
-    .cards {
+    .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 22px;
@@ -266,55 +298,54 @@
 
     .card {
       background: var(--panel);
-      border: 1px solid var(--panel-border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: var(--shadow);
     }
 
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, rgba(129,140,248,0.25), rgba(167,139,250,0.20));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.15rem;
+    }
+
     .card h3 {
       margin-bottom: 12px;
-      font-size: 1.2rem;
+      font-size: 1.18rem;
     }
 
     .card p {
       color: var(--muted);
-      margin-bottom: 0;
+      margin: 0;
     }
 
-    .icon {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      margin-bottom: 18px;
-      background: linear-gradient(135deg, rgba(108,140,255,0.25), rgba(157,123,255,0.20));
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 1.1rem;
-    }
-
-    .about-grid {
+    .split-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 22px;
-      align-items: stretch;
     }
 
-    .feature-list {
+    .list {
       display: grid;
       gap: 14px;
       margin-top: 22px;
     }
 
-    .feature-item {
+    .list-item {
       display: flex;
       gap: 12px;
       align-items: flex-start;
       color: var(--muted);
     }
 
-    .feature-dot {
+    .dot {
       width: 12px;
       height: 12px;
       border-radius: 999px;
@@ -323,31 +354,53 @@
       flex: 0 0 auto;
     }
 
-    .cta {
-      padding: 72px 0 90px;
-    }
-
-    .cta-box {
-      background: linear-gradient(135deg, rgba(108,140,255,0.22), rgba(110,231,255,0.14), rgba(157,123,255,0.20));
-      border: 1px solid var(--panel-border);
+    .contact-box {
+      background: linear-gradient(135deg, rgba(129,140,248,0.18), rgba(125,211,252,0.10), rgba(167,139,250,0.18));
+      border: 1px solid var(--border);
       border-radius: 32px;
       padding: 40px;
-      box-shadow: var(--shadow);
       text-align: center;
+      box-shadow: var(--shadow);
     }
 
-    .cta-box h2 {
+    .contact-box h2 {
       font-size: clamp(2rem, 4vw, 3rem);
       margin-bottom: 14px;
     }
 
-    .cta-box p {
+    .contact-box p {
       color: var(--muted);
       max-width: 760px;
       margin: 0 auto 24px;
     }
 
-    .footer {
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .contact-card strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .contact-card span,
+    .contact-card a {
+      color: var(--muted);
+      word-break: break-word;
+    }
+
+    footer {
       border-top: 1px solid rgba(255,255,255,0.08);
       padding: 28px 0 42px;
       color: var(--muted);
@@ -357,40 +410,69 @@
     .footer-row {
       display: flex;
       justify-content: space-between;
-      gap: 18px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
     @media (max-width: 980px) {
       .hero-grid,
-      .cards,
-      .about-grid {
+      .services-grid,
+      .split-grid,
+      .contact-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 56px;
-      }
-
-      .nav {
+      .nav-links {
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        display: none;
         flex-direction: column;
         align-items: flex-start;
+        gap: 0;
+        background: rgba(7, 17, 31, 0.97);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        padding: 14px 4%;
       }
 
-      .nav-links {
-        gap: 16px;
+      .nav-links a {
+        width: 100%;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .nav-links a:last-child {
+        border-bottom: none;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .hero {
+        padding-top: 64px;
       }
     }
 
     @media (max-width: 640px) {
       h1 {
-        letter-spacing: -0.8px;
+        letter-spacing: -1px;
       }
 
       .hero-card,
       .card,
-      .cta-box {
+      .contact-box,
+      .contact-card {
         padding: 22px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
       }
 
       .btn {
@@ -398,25 +480,29 @@
         text-align: center;
       }
 
-      .hero-actions {
-        flex-direction: column;
+      .trust-row {
+        gap: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
+  <header class="site-header">
     <div class="container nav">
       <a href="#home" class="brand" aria-label="Human First Technology home">
         <span class="brand-badge">H</span>
         <span>Human First Technology</span>
       </a>
 
-      <nav class="nav-links" aria-label="Primary navigation">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+      </button>
+
+      <nav class="nav-links" id="navLinks">
         <a href="#services">Services</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="#contact" class="btn btn-secondary">Get Started</a>
+        <a href="mailto:info@humanfirst-tech.com?subject=Inquiry%20from%20Human%20First%20Technology%20Website" class="nav-cta">Email Us</a>
       </nav>
     </div>
   </header>
@@ -425,55 +511,57 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">People first. Technology that works.</div>
-          <h1>Human First Technology</h1>
+          <div class="eyebrow">People first. Practical technology. Real results.</div>
+          <h1>Technology that works for people.</h1>
           <p>
-            We help businesses use technology with clarity, security, and purpose.
-            From managed IT support and cybersecurity to cloud guidance and business
-            technology consulting, our focus is simple: solutions that serve people first.
+            Human First Technology helps organizations improve security, reliability,
+            and day-to-day operations through modern IT support, cybersecurity,
+            cloud guidance, and business-focused technology consulting.
           </p>
 
           <div class="hero-actions">
-            <a href="#contact" class="btn btn-primary">Request a Consultation</a>
-            <a href="#services" class="btn btn-secondary">View Services</a>
+            <a href="#contact" class="btn btn-primary">Schedule a Conversation</a>
+            <a href="#services" class="btn btn-secondary">Explore Services</a>
           </div>
 
-          <div class="trust-row" aria-label="Business highlights">
-            <span class="trust-chip">Managed IT Support</span>
+          <div class="trust-row">
+            <span class="trust-chip">Managed IT</span>
             <span class="trust-chip">Cybersecurity</span>
             <span class="trust-chip">Cloud & Infrastructure</span>
-            <span class="trust-chip">Business Technology Consulting</span>
+            <span class="trust-chip">Technology Consulting</span>
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="Company highlights">
-          <div class="stat">
-            <div class="stat-icon">🛡️</div>
-            <div>
-              <strong>Security-minded approach</strong>
-              <p style="margin:6px 0 0; color: var(--muted);">
-                Practical protection for endpoints, accounts, backups, and business systems.
-              </p>
+        <aside class="hero-card">
+          <div class="mini-grid">
+            <div class="mini-card">
+              <div class="mini-icon">🛡️</div>
+              <div>
+                <strong>Security-first thinking</strong>
+                <div style="color: var(--muted); margin-top: 6px;">
+                  Practical protection for endpoints, accounts, backups, and business systems.
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="stat">
-            <div class="stat-icon">☁️</div>
-            <div>
-              <strong>Modern technology guidance</strong>
-              <p style="margin:6px 0 0; color: var(--muted);">
-                Clear recommendations for cloud services, productivity tools, and infrastructure.
-              </p>
+            <div class="mini-card">
+              <div class="mini-icon">☁️</div>
+              <div>
+                <strong>Modern solutions</strong>
+                <div style="color: var(--muted); margin-top: 6px;">
+                  Guidance for cloud services, Microsoft 365, infrastructure, and operational tools.
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="stat" style="margin-bottom: 0;">
-            <div class="stat-icon">🤝</div>
-            <div>
-              <strong>Human-centered service</strong>
-              <p style="margin:6px 0 0; color: var(--muted);">
-                We explain technology in plain language and build solutions around real business needs.
-              </p>
+            <div class="mini-card">
+              <div class="mini-icon">🤝</div>
+              <div>
+                <strong>Human-centered support</strong>
+                <div style="color: var(--muted); margin-top: 6px;">
+                  Clear communication and dependable service built around your business needs.
+                </div>
+              </div>
             </div>
           </div>
         </aside>
@@ -485,62 +573,63 @@
         <div class="section-header">
           <h2>Services</h2>
           <p>
-            Technology services designed to improve reliability, reduce risk, and help your business grow.
+            Focused technology services designed to reduce risk, improve uptime,
+            and help your business grow with confidence.
           </p>
         </div>
 
-        <div class="cards">
+        <div class="services-grid">
           <article class="card">
-            <div class="icon">💻</div>
+            <div class="service-icon">💻</div>
             <h3>Managed IT Services</h3>
             <p>
-              Day-to-day support for workstations, servers, software, users, and business systems
-              to keep operations running smoothly.
+              Ongoing support for computers, users, servers, software, and daily operations
+              to keep your business running smoothly.
             </p>
           </article>
 
           <article class="card">
-            <div class="icon">🔐</div>
+            <div class="service-icon">🔐</div>
             <h3>Cybersecurity</h3>
             <p>
-              Endpoint protection, account security, backup strategy, security reviews,
-              and practical safeguards against ransomware and modern threats.
+              Protection strategies for endpoints, accounts, backups, and business systems
+              with a practical approach to modern threats.
             </p>
           </article>
 
           <article class="card">
-            <div class="icon">☁️</div>
+            <div class="service-icon">☁️</div>
             <h3>Cloud & Infrastructure</h3>
             <p>
-              Guidance for Microsoft 365, cloud platforms, backup solutions, virtualization,
-              and hybrid environments built for resilience and scale.
+              Guidance for Microsoft 365, backup solutions, virtualization,
+              cloud migration, and resilient IT environments.
             </p>
           </article>
 
           <article class="card">
-            <div class="icon">📊</div>
+            <div class="service-icon">📊</div>
             <h3>Technology Consulting</h3>
             <p>
-              Strategic advice on tools, systems, risk, compliance readiness, and roadmap planning
-              to align technology with business goals.
+              Strategic advice to help you select tools, improve systems,
+              and align technology decisions with business goals.
             </p>
           </article>
 
           <article class="card">
-            <div class="icon">🧩</div>
-            <h3>Business Solutions</h3>
+            <div class="service-icon">🧩</div>
+            <h3>Business Technology Solutions</h3>
             <p>
-              Help selecting and implementing the right systems for communication, collaboration,
-              operations, documentation, and productivity.
+              Practical help with collaboration tools, documentation systems,
+              process improvement, and efficient operations.
             </p>
           </article>
 
           <article class="card">
-            <div class="icon">📞</div>
-            <h3>Support with a Personal Touch</h3>
+            <div class="service-icon">📞</div>
+            <h3>Trusted Support</h3>
             <p>
-              Responsive service, clear communication, and trusted support for companies that
-              want a reliable technology partner.
+              Responsive service and clear communication for organizations that want
+              a dependable technology partner.
             </p>
           </article>
         </div>
@@ -552,31 +641,31 @@
         <div class="section-header">
           <h2>Why Human First Technology</h2>
           <p>
-            We believe technology should serve people, not frustrate them.
+            We believe technology should help people do their jobs better, safer, and with less friction.
           </p>
         </div>
 
-        <div class="about-grid">
+        <div class="split-grid">
           <div class="card">
             <h3>Our Approach</h3>
             <p>
-              Human First Technology was built on the idea that good technology is not just about
-              hardware, software, or security tools. It is about helping real people do their work
-              better, safer, and with less friction.
+              Human First Technology is built on a simple idea: the best technology solutions
+              are the ones that make life easier for the people using them. That means clear advice,
+              practical solutions, and a focus on what matters most to your business.
             </p>
 
-            <div class="feature-list">
-              <div class="feature-item">
-                <span class="feature-dot"></span>
+            <div class="list">
+              <div class="list-item">
+                <span class="dot"></span>
                 <span>Clear recommendations without unnecessary complexity</span>
               </div>
-              <div class="feature-item">
-                <span class="feature-dot"></span>
-                <span>Solutions tailored to your business goals and budget</span>
+              <div class="list-item">
+                <span class="dot"></span>
+                <span>Security and reliability included from the start</span>
               </div>
-              <div class="feature-item">
-                <span class="feature-dot"></span>
-                <span>Security and reliability built into every conversation</span>
+              <div class="list-item">
+                <span class="dot"></span>
+                <span>Solutions aligned to business needs and budget</span>
               </div>
             </div>
           </div>
@@ -584,22 +673,23 @@
           <div class="card">
             <h3>Who We Help</h3>
             <p>
-              We work with organizations that want dependable support, stronger security,
-              and practical technology leadership without the confusion that often comes with IT projects.
+              We support organizations that need dependable IT guidance, stronger cybersecurity,
+              and practical leadership for technology decisions without the confusion that often
+              comes with IT projects.
             </p>
 
-            <div class="feature-list">
-              <div class="feature-item">
-                <span class="feature-dot"></span>
+            <div class="list">
+              <div class="list-item">
+                <span class="dot"></span>
                 <span>Small and midsize businesses</span>
               </div>
-              <div class="feature-item">
-                <span class="feature-dot"></span>
-                <span>Growing teams that need structure and guidance</span>
+              <div class="list-item">
+                <span class="dot"></span>
+                <span>Growing teams needing structure and support</span>
               </div>
-              <div class="feature-item">
-                <span class="feature-dot"></span>
-                <span>Leaders who want technology decisions explained in business terms</span>
+              <div class="list-item">
+                <span class="dot"></span>
+                <span>Business leaders who want technology explained clearly</span>
               </div>
             </div>
           </div>
@@ -607,25 +697,63 @@
       </div>
     </section>
 
-    <section class="cta" id="contact">
+    <section class="section" id="contact">
       <div class="container">
-        <div class="cta-box">
-          <h2>Let’s make technology work for people.</h2>
+        <div class="contact-box">
+          <h2>Let’s talk about your business.</h2>
           <p>
-            Whether you need IT support, cybersecurity help, cloud guidance, or a trusted advisor
-            for your business technology decisions, Human First Technology is ready to help.
+            Whether you need help with IT support, cybersecurity, cloud services,
+            or technology planning, Human First Technology is ready to help you move forward.
           </p>
-          <a href="mailto:info@humanfirst-tech.com" class="btn btn-primary">Email Us</a>
+
+          <div class="hero-actions" style="justify-content:center;">
+            <a href="mailto:info@humanfirst-tech.com?subject=Inquiry%20from%20Human%20First%20Technology%20Website" class="btn btn-primary">Email Human First Technology</a>
+            <a href="mailto:info@humanfirst-tech.com?subject=Request%20for%20Consultation&body=Hello%20Human%20First%20Technology%2C%0A%0AI%20would%20like%20to%20discuss%20your%20services.%0A" class="btn btn-secondary">Request Consultation</a>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-card">
+              <strong>Email</strong>
+              <a href="mailto:info@humanfirst-tech.com">info@humanfirst-tech.com</a>
+            </div>
+
+            <div class="contact-card">
+              <strong>Business Focus</strong>
+              <span>Managed IT, cybersecurity, cloud, and consulting services</span>
+            </div>
+
+            <div class="contact-card">
+              <strong>Approach</strong>
+              <span>Human-first service with practical, security-minded technology guidance</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer>
     <div class="container footer-row">
       <div>© 2026 Human First Technology. All rights reserved.</div>
-      <div>Human-first service. Secure, practical, modern technology.</div>
+      <div>People first. Technology that works.</div>
     </div>
   </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("active");
+      menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
 </body>
 </html>
