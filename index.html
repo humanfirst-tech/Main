@@ -682,6 +682,12 @@
     <div class="container footer-row">
       <div>© 2026 Human First Technology. All rights reserved.</div>
       <div>Human-first service. Secure, practical, modern technology.</div>
+      <div style="font-size:0.85rem; opacity:0.9;">
+        <label style="cursor:pointer; display:inline-flex; gap:8px; align-items:center;">
+          <input id="contactModeToggle" type="checkbox" aria-label="Show contact only once" />
+          Show contact only once
+        </label>
+      </div>
     </div>
   </footer>
   <div class="confetti-container" id="confettiContainer" aria-hidden="true"></div>
@@ -690,12 +696,11 @@
     (function () {
       const contactBtn = document.getElementById('contactBtn');
       const contactInfo = document.getElementById('contactInfo');
-      const contactPhone = document.getElementById('contactPhone');
-      const contactEmail = document.getElementById('contactEmail');
       const confettiContainer = document.getElementById('confettiContainer');
+      const contactModeToggle = document.getElementById('contactModeToggle');
 
       let shownOnce = false;
-      const HIDE_DELAY = 8000; // milliseconds
+      const HIDE_DELAY = 8000;
 
       function random(min, max) { return Math.random() * (max - min) + min; }
 
@@ -721,31 +726,55 @@
 
           confettiContainer.appendChild(el);
 
-          // remove after animation completes
           setTimeout(() => el.remove(), duration + delay + 50);
         }
       }
 
-      function showContactOnce() {
+      function showContactPersistent() {
+        if (!contactInfo) return;
+        contactInfo.style.display = 'grid';
+        contactInfo.setAttribute('aria-hidden', 'false');
+      }
+
+      function showContactTransient() {
         if (!contactInfo || shownOnce) return;
         shownOnce = true;
         contactInfo.style.display = 'grid';
         contactInfo.setAttribute('aria-hidden', 'false');
-
-        // show confetti once
         createConfettiBurst(72);
-
-        // hide and remove sensitive text after a short delay so it doesn't remain on the page
         setTimeout(() => {
+          if (!contactInfo) return;
           contactInfo.style.display = 'none';
           contactInfo.setAttribute('aria-hidden', 'true');
-          if (contactPhone) contactPhone.textContent = '';
-          if (contactEmail) contactEmail.textContent = '';
         }, HIDE_DELAY);
       }
 
+      function handleContactClick() {
+        const mode = localStorage.getItem('contactMode') || 'always';
+        if (mode === 'once') {
+          showContactTransient();
+        } else {
+          showContactPersistent();
+          createConfettiBurst(72);
+        }
+      }
+
       if (contactBtn) {
-        contactBtn.addEventListener('click', showContactOnce);
+        contactBtn.addEventListener('click', handleContactClick);
+      }
+
+      // initialize toggle UI and persist choice
+      try {
+        if (contactModeToggle) {
+          const saved = localStorage.getItem('contactMode') || 'always';
+          contactModeToggle.checked = saved === 'once';
+          contactModeToggle.addEventListener('change', function () {
+            const mode = contactModeToggle.checked ? 'once' : 'always';
+            localStorage.setItem('contactMode', mode);
+          });
+        }
+      } catch (e) {
+        // localStorage may be unavailable in some environments; fail silently
       }
     })();
   </script>
