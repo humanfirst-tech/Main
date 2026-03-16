@@ -403,6 +403,57 @@
         flex-direction: column;
       }
     }
+
+    /* Contact display and confetti styles */
+    .contact-info {
+      margin-top: 18px;
+      display: none;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      color: var(--text);
+      font-weight: 700;
+      display: grid;
+      grid-auto-flow: row;
+      row-gap: 6px;
+      font-size: 1rem;
+    }
+
+    .contact-line {
+      background: rgba(255,255,255,0.03);
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .confetti-container {
+      position: fixed;
+      pointer-events: none;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 0;
+      overflow: visible;
+      z-index: 2200;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 14px;
+      opacity: 0.95;
+      border-radius: 2px;
+      will-change: transform, opacity;
+      animation-name: confetti-fall;
+      animation-timing-function: linear;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0.9; }
+    }
   </style>
 </head>
 <body>
@@ -616,7 +667,12 @@
             Whether you need IT support, cybersecurity help, cloud guidance, or a trusted advisor
             for your business technology decisions, Human First Technology is ready to help.
           </p>
-          <a href="mailto:robert@humanfirst-tech.com" class="btn btn-primary">Contact Us</a>
+          <button id="contactBtn" class="btn btn-primary" type="button">Contact Us</button>
+
+          <div id="contactInfo" class="contact-info" aria-hidden="true">
+            <div class="contact-line" id="contactPhone">Phone: (555) 555-0123</div>
+            <div class="contact-line" id="contactEmail">Email: robert@humanfirst-tech.com</div>
+          </div>
         </div>
       </div>
     </section>
@@ -628,5 +684,57 @@
       <div>Human-first service. Secure, practical, modern technology.</div>
     </div>
   </footer>
+  <div class="confetti-container" id="confettiContainer" aria-hidden="true"></div>
+
+  <script>
+    (function () {
+      const contactBtn = document.getElementById('contactBtn');
+      const contactInfo = document.getElementById('contactInfo');
+      const confettiContainer = document.getElementById('confettiContainer');
+
+      function showContact() {
+        if (!contactInfo) return;
+        contactInfo.style.display = 'grid';
+        contactInfo.setAttribute('aria-hidden', 'false');
+      }
+
+      function random(min, max) { return Math.random() * (max - min) + min; }
+
+      function createConfettiBurst(amount = 80) {
+        const colors = ['#FFC107', '#FF3D00', '#00E5FF', '#7C4DFF', '#00C853', '#FF4081'];
+        for (let i = 0; i < amount; i++) {
+          const el = document.createElement('div');
+          el.className = 'confetti';
+          const left = random(0, 100);
+          const size = Math.floor(random(7, 14));
+          const color = colors[Math.floor(random(0, colors.length))];
+          const duration = Math.floor(random(1400, 2600));
+          const delay = Math.floor(random(0, 400));
+          el.style.left = left + '%';
+          el.style.width = size + 'px';
+          el.style.height = Math.floor(size * 1.2) + 'px';
+          el.style.background = color;
+          el.style.top = '-10vh';
+          el.style.animationDuration = duration + 'ms';
+          el.style.animationDelay = delay + 'ms';
+          el.style.transform = 'rotate(' + Math.floor(random(0, 360)) + 'deg)';
+
+          confettiContainer.appendChild(el);
+
+          // remove after animation completes
+          setTimeout(() => {
+            el.remove();
+          }, duration + delay + 50);
+        }
+      }
+
+      if (contactBtn) {
+        contactBtn.addEventListener('click', function () {
+          showContact();
+          createConfettiBurst(72);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
