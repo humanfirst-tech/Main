@@ -690,17 +690,17 @@
     (function () {
       const contactBtn = document.getElementById('contactBtn');
       const contactInfo = document.getElementById('contactInfo');
+      const contactPhone = document.getElementById('contactPhone');
+      const contactEmail = document.getElementById('contactEmail');
       const confettiContainer = document.getElementById('confettiContainer');
 
-      function showContact() {
-        if (!contactInfo) return;
-        contactInfo.style.display = 'grid';
-        contactInfo.setAttribute('aria-hidden', 'false');
-      }
+      let shownOnce = false;
+      const HIDE_DELAY = 8000; // milliseconds
 
       function random(min, max) { return Math.random() * (max - min) + min; }
 
       function createConfettiBurst(amount = 80) {
+        if (!confettiContainer) return;
         const colors = ['#FFC107', '#FF3D00', '#00E5FF', '#7C4DFF', '#00C853', '#FF4081'];
         for (let i = 0; i < amount; i++) {
           const el = document.createElement('div');
@@ -722,17 +722,30 @@
           confettiContainer.appendChild(el);
 
           // remove after animation completes
-          setTimeout(() => {
-            el.remove();
-          }, duration + delay + 50);
+          setTimeout(() => el.remove(), duration + delay + 50);
         }
       }
 
+      function showContactOnce() {
+        if (!contactInfo || shownOnce) return;
+        shownOnce = true;
+        contactInfo.style.display = 'grid';
+        contactInfo.setAttribute('aria-hidden', 'false');
+
+        // show confetti once
+        createConfettiBurst(72);
+
+        // hide and remove sensitive text after a short delay so it doesn't remain on the page
+        setTimeout(() => {
+          contactInfo.style.display = 'none';
+          contactInfo.setAttribute('aria-hidden', 'true');
+          if (contactPhone) contactPhone.textContent = '';
+          if (contactEmail) contactEmail.textContent = '';
+        }, HIDE_DELAY);
+      }
+
       if (contactBtn) {
-        contactBtn.addEventListener('click', function () {
-          showContact();
-          createConfettiBurst(72);
-        });
+        contactBtn.addEventListener('click', showContactOnce);
       }
     })();
   </script>
